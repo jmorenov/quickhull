@@ -140,9 +140,9 @@ def quick_hull(points):
 
 
 def draw(a, b, s1, s2):
-    if (len(s1) > 0):
+    if len(s1) > 0:
         draw_points(np.array(s1), color='green')
-    if (len(s2) > 0):
+    if len(s2) > 0:
         draw_points(np.array(s2), color='yellow')
     draw_line(np.array(calculate_line(a, b)), color='red')
     plt.show()
@@ -162,12 +162,7 @@ def find_hull(points, p, q):
         points = find_points_outside_triangle(triangle, points)
 
         s1 = find_points_right_to_line(p, max_point_to_line, points)
-        s1_1 = find_points_right_to_line(max_point_to_line, p, points)
         s2 = find_points_right_to_line(max_point_to_line, q, points)
-        s2_2 = find_points_right_to_line(q, max_point_to_line, points)
-
-        # draw(p, max_point_to_line, s1, s1_1)
-        # draw(max_point_to_line, q, s2, s2_2)
 
         convex_hull.extend([p])
         convex_hull.extend(find_hull(s1, p, max_point_to_line))
@@ -200,5 +195,8 @@ def read_points_from_file(file_path):
 
 
 if __name__ == '__main__':
-    cloud_points = read_points_from_file('cloud_points.txt')
+    file_path = input('Enter the path of the file (the format of the file is '
+                      'two columns of coords x and y separated by a tab): ')
+
+    cloud_points = read_points_from_file(file_path)
     quick_hull(cloud_points)
